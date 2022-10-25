@@ -3,6 +3,7 @@ package Spring.Chris;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -24,4 +25,15 @@ public class Controller {
         Optional<Cliente> clienteReturned = repository.findById(id);
         return clienteReturned;
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteclienteById(@PathVariable Long id){
+        repository.deleteById(id);
+    }
+
+    @GetMapping
+    public List<Cliente> listCliente(){
+        return repository.findAll();
+    }
+
 }
