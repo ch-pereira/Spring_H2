@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/cliente/v1/")
+@RequestMapping(value = "/cliente/v1")
 public class Controller {
 
     @Autowired
@@ -36,4 +36,17 @@ public class Controller {
         return repository.findAll();
     }
 
+    @PutMapping("/atualize/{id}")
+    public String updateClienteById(@RequestBody ClienteDTO clienteDTO, @PathVariable Long id){
+        Optional<Cliente> velhoCliente = repository.findById(id);
+        if (velhoCliente.isPresent()){
+            Cliente cliente = velhoCliente.get();
+            cliente.setEndereco(clienteDTO.getEndereco());
+            return "Cliente de id " + cliente.getId() + " atualizado com sucesso!";
+        } else {
+            return "Cliente de id " + id + " não existe!";
+
+        }
+
+    }
 }
